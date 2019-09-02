@@ -67,7 +67,8 @@
     #define RESTRICT
 #endif
 
-#if defined(__SIZEOF_INT128__) || ((__clang_major__ * 100 + __clang_minor__) >= 302)
+// #if defined(__SIZEOF_INT128__) || ((__clang_major__ * 100 + __clang_minor__) >= 302)
+#if defined(__SIZEOF_INT128__)
     #define SUPPORTS_INT128 1
 #else
     #define SUPPORTS_INT128 0

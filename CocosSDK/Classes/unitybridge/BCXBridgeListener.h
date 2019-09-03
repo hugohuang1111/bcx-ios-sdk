@@ -1,7 +1,8 @@
-#ifndef __ADDEALS_LISTENER_H__
-#define __ADDEALS_LISTENER_H__
+#ifndef __BCX_BRIDGE_LISTENER_H__
+#define __BCX_BRIDGE_LISTENER_H__
 
-#include <string>
+//#import <string>
+//#include <string>
 
 namespace BCXBridgeIOS {
     class BCXBridgeListener {
@@ -19,6 +20,6 @@ namespace BCXBridgeIOS {
     };
 }
 
-#endif // __ADDEALS_LISTENER_H__
+#endif // __BCX_BRIDGE_LISTENER_H__
 
 

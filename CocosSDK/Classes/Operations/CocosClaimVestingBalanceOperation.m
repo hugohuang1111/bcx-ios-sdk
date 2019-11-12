@@ -1,22 +1,24 @@
 //
-//  CocosDeleteNHOperation.m
+//  CocosClaimVestingBalanceOperation.m
 //  CocosSDKDemo
 //
-//  Created by 邵银岭 on 2019/7/8.
+//  Created by 邵银岭 on 2019/9/26.
 //  Copyright © 2019 邵银岭. All rights reserved.
 //
 
-#import "CocosDeleteNHOperation.h"
-#import "ChainAssetAmountObject.h"
-#import "NSObject+DataToObject.h"
+#import "CocosClaimVestingBalanceOperation.h"
 #import "ChainObjectId.h"
 #import "CocosPackData.h"
+#import "ChainAssetAmountObject.h"
+#import "NSObject+DataToObject.h"
 
-@implementation CocosDeleteNHOperation
+@implementation CocosClaimVestingBalanceOperation
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        
     }
     return self;
 }
@@ -31,16 +33,18 @@
 - (void)setValue:(id)value forKey:(NSString *)key {
     if ([value isKindOfClass:[NSNull class]]) return;
     
-//    if ([key isEqualToString:@"fee"]) {
-//        self.fee = [ChainAssetAmountObject generateFromObject:value];
-//        return;
-//    }
-    if ([key isEqualToString:@"fee_paying_account"]) {
-        self.fee_paying_account = [ChainObjectId generateFromObject:value];
+    
+    if ([key isEqualToString:@"vesting_balance"]) {
+        self.vesting_balance = [ChainObjectId generateFromObject:value];
         return;
     }
-    if ([key isEqualToString:@"nh_asset"]) {
-        self.nh_asset = [ChainObjectId generateFromObject:value];
+    if ([key isEqualToString:@"owner"]) {
+        self.owner = [ChainObjectId generateFromObject:value];
+        return;
+    }
+    
+    if ([key isEqualToString:@"amount"]) {
+        self.amount = [ChainAssetAmountObject generateFromObject:value];
         return;
     }
     [super setValue:value forKey:key];
@@ -55,24 +59,23 @@
     return [[self alloc] initWithDic:object];
 }
 
+//
 - (id)generateToTransferObject {
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[self defaultGetDictionary]];
+    
     return [dic copy];
 }
 
 - (NSData *)transformToData {
     NSMutableData *mutableData = [NSMutableData dataWithCapacity:300];
     
-//    if (!self.fee) {
-//        [mutableData appendData:[[[ChainAssetAmountObject alloc] initFromAssetId:[ChainObjectId generateFromObject:@"1.3.0"] amount:0] transformToData]];
-//    }else {
-//        [mutableData appendData:[self.fee transformToData]];
-//    }
-    [mutableData appendData:[self.fee_paying_account transformToData]];
-
-    [mutableData appendData:[self.nh_asset transformToData]];
+    [mutableData appendData:[self.vesting_balance transformToData]];
+    
+    [mutableData appendData:[self.owner transformToData]];
+    
+    [mutableData appendData:[self.amount transformToData]];
     
     return [mutableData copy];
 }
-
 @end

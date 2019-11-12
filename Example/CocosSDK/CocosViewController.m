@@ -73,7 +73,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *transfer_toTF;
 @property (weak, nonatomic) IBOutlet UITextField *transfer_countTF;
 @property (weak, nonatomic) IBOutlet UITextField *transfer_assetIDTF;
-@property (weak, nonatomic) IBOutlet UITextField *transfer_FeeAssetTF;
 @property (weak, nonatomic) IBOutlet UITextField *transfer_noteTF;
 @property (weak, nonatomic) IBOutlet UITextField *transfer_password;
 
@@ -151,6 +150,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *callsellnh_orderId;
 @property (weak, nonatomic) IBOutlet UITextField *callsellnh_account;
 @property (weak, nonatomic) IBOutlet UITextField *callsellnh_password;
+
+// 为gas调整抵押物
+@property (weak, nonatomic) IBOutlet UITextField *mortgage_mortgager;
+@property (weak, nonatomic) IBOutlet UITextField *mortgage_beneficiary;
+@property (weak, nonatomic) IBOutlet UITextField *mortgage_amout;
+@property (weak, nonatomic) IBOutlet UITextField *mortgage_password;
+
+// 查看待领取GAS或节点出块奖励
+@property (weak, nonatomic) IBOutlet UITextField *receive_gas_account;
+@property (weak, nonatomic) IBOutlet UITextField *receive_gas_password;
+
 @end
 
 @implementation CocosViewController
@@ -175,11 +185,18 @@
 //            NSLog(@"Cocos_CallContract erroe  \n%@",error);
 //        }];
         
-        [[CocosSDK shareInstance] Cocos_GetTransactionById:@"425082979be47fd70d58e236f6120ad9218abc2bd4453bf734bddfbd179b4ca5" Success:^(id responseObject) {
-            NSLog(@"Cocos_GetTransactionById \n%@",responseObject);
-        } Error:^(NSError *error) {
-            NSLog(@"Cocos_GetTransactionById erroe  \n%@",error);
-        }];
+//        [[CocosSDK shareInstance] Cocos_GetTransactionById:@"425082979be47fd70d58e236f6120ad9218abc2bd4453bf734bddfbd179b4ca5" Success:^(id responseObject) {
+//            NSLog(@"Cocos_GetTransactionById \n%@",responseObject);
+//        } Error:^(NSError *error) {
+//            NSLog(@"Cocos_GetTransactionById erroe  \n%@",error);
+//        }];
+        
+//        [[CocosSDK shareInstance] Cocos_GetAccountHistory:@"1.2.354" Limit:3 Success:^(NSArray *responseObject) {
+//            NSLog(@"account_option_historyClick success :%@",responseObject);
+//        } Error:^(NSError *error) {
+//            NSLog(@"account_option_historyClick error :%@",error);
+//        }];
+
     });
 }
 
@@ -351,18 +368,18 @@
 
 // 升级成为终身会员 手续费
 - (IBAction)upgradeMemberShipFee:(id)sender {
-    NSString *upgradeaccount = self.upgrade_embership_account.text;
-    [[CocosSDK shareInstance] Cocos_UpgradeMemberFeeAccount:upgradeaccount FeePayingAsset:@"COCOS" Success:^(id responseObject) {
-        NSLog(@"Cocos_UpgradeMemberFeeAccount \n%@",responseObject);
-    } Error:^(NSError *error) {
-        NSLog(@"Cocos_UpgradeMemberFeeAccount error \n%@",error);
-    }];
+//    NSString *upgradeaccount = self.upgrade_embership_account.text;
+//    [[CocosSDK shareInstance] Cocos_UpgradeMemberFeeAccount:upgradeaccount FeePayingAsset:@"COCOS" Success:^(id responseObject) {
+//        NSLog(@"Cocos_UpgradeMemberFeeAccount \n%@",responseObject);
+//    } Error:^(NSError *error) {
+//        NSLog(@"Cocos_UpgradeMemberFeeAccount error \n%@",error);
+//    }];
 }
 // 升级成为终身会员
 - (IBAction)upgradeMemberShip {
     NSString *upgradeaccount = self.upgrade_embership_account.text;
     NSString *pwd = self.upgrade_embership_password.text;
-    [[CocosSDK shareInstance] Cocos_UpgradeMemberAccount:upgradeaccount password:pwd FeePayingAsset:@"COCOS" Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_UpgradeMemberAccount:upgradeaccount password:pwd  Success:^(id responseObject) {
         NSLog(@"Cocos_UpgradeMemberAccount \n%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"Cocos_UpgradeMemberAccount error \n%@",error);
@@ -372,18 +389,18 @@
 #pragma mark - 代币到账
 // 获取手续费
 - (IBAction)getTransferClick:(UIButton *)sender {
-    NSString *frome = self.transfer_fromTF.text;// @"syling"
-    NSString *to = self.transfer_toTF.text;// @"gnkhandsome1"
-    NSString *count = self.transfer_countTF.text;// @"10"
-    NSString *assetID = self.transfer_assetIDTF.text; // @"COCOS"
-    NSString *FeeAsset = self.transfer_FeeAssetTF.text;// @"COCOS"
-    NSString *note = self.transfer_noteTF.text;// 备注
-    NSString *password = self.transfer_password.text;// 备注
-    [[CocosSDK shareInstance] Cocos_GetTransferFeesFrom:frome ToAccount:to Password:password TransferAsset:assetID AssetAmount:count FeePayingAsset:FeeAsset Memo:note Success:^(id responseObject) {
-        NSLog(@"Cocos_GetTransferFeesFrom 1 success :%@",responseObject);
-    } Error:^(NSError *error) {
-        NSLog(@"Cocos_GetTransferFeesFrom 1 error :%@",error);
-    }];
+//    NSString *frome = self.transfer_fromTF.text;// @"syling"
+//    NSString *to = self.transfer_toTF.text;// @"gnkhandsome1"
+//    NSString *count = self.transfer_countTF.text;// @"10"
+//    NSString *assetID = self.transfer_assetIDTF.text; // @"COCOS"
+//    NSString *FeeAsset = self.transfer_FeeAssetTF.text;// @"COCOS"
+//    NSString *note = self.transfer_noteTF.text;// 备注
+//    NSString *password = self.transfer_password.text;// 备注
+//    [[CocosSDK shareInstance] Cocos_GetTransferFeesFrom:frome ToAccount:to Password:password TransferAsset:assetID AssetAmount:count Memo:note Success:^(id responseObject) {
+//        NSLog(@"Cocos_GetTransferFeesFrom 1 success :%@",responseObject);
+//    } Error:^(NSError *error) {
+//        NSLog(@"Cocos_GetTransferFeesFrom 1 error :%@",error);
+//    }];
 }
 
 // 转账
@@ -392,10 +409,9 @@
     NSString *to = self.transfer_toTF.text;// @"gnkhandsome1"
     NSString *count = self.transfer_countTF.text;// @"10"
     NSString *assetID = self.transfer_assetIDTF.text; // @"COCOS"
-    NSString *FeeAsset = self.transfer_FeeAssetTF.text;// @"COCOS"
     NSString *note = self.transfer_noteTF.text;// 备注
     NSString *password = self.transfer_password.text;// 备注
-    [[CocosSDK shareInstance] Cocos_TransferFromAccount:frome ToAccount:to Password:password TransferAsset:assetID AssetAmount:count FeePayingAsset:FeeAsset Memo:note Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_TransferFromAccount:frome ToAccount:to Password:password TransferAsset:assetID AssetAmount:count Memo:note Success:^(id responseObject) {
         NSLog(@"transferClick success :%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"transferClick error :%@",error);
@@ -510,7 +526,7 @@
     NSString *nhAccount = self.deletenh_account.text;//@"syling"
     NSString *nhdeletepwd = self.deletenh_password.text;
     
-    [[CocosSDK shareInstance] Cocos_DeleteNHAssetAccount:nhAccount Password:nhdeletepwd FeePayingAsset:@"COCOS" nhAssetID:nhId Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_DeleteNHAssetAccount:nhAccount Password:nhdeletepwd nhAssetID:nhId Success:^(id responseObject) {
         NSLog(@"Cocos_DeleteNHAssetAccount \n%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"Cocos_DeleteNHAssetAccount error  \n%@",error);
@@ -523,7 +539,7 @@
     NSString *nhto = self.transfernh_account_to.text;// @"gnkhandsome1"
     NSString *nhtranferpwd = self.transfernh_password.text;
     
-    [[CocosSDK shareInstance] Cocos_TransferNHAsset:nhfrom ToAccount:nhto NHAssetID:nhId Password:nhtranferpwd FeePayingAsset:@"1.3.0" Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_TransferNHAsset:nhfrom ToAccount:nhto NHAssetID:nhId Password:nhtranferpwd Success:^(id responseObject) {
         NSLog(@"Cocos_TransferNHAsset \n%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"Cocos_TransferNHAsset error  \n%@",error);
@@ -536,7 +552,7 @@
     NSString *orderId = self.bugnh_nhId.text;// @"4.2.56"
     NSString *account = self.bugnh_account.text;//@"syling"
     NSString *bugnhpwd = self.bugnh_password.text;
-    [[CocosSDK shareInstance] Cocos_BuyNHAssetOrderID:orderId Account:account Password:bugnhpwd FeePayingAsset:@"1.3.0" Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_BuyNHAssetOrderID:orderId Account:account Password:bugnhpwd Success:^(id responseObject) {
         NSLog(@"Cocos_BuyNHAssetFeeOrderID \n%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"Cocos_BuyNHAssetFeeOrderID error  \n%@",error);
@@ -570,12 +586,46 @@
     NSString *orderId = self.callsellnh_orderId.text;// @"4.3.77"
     NSString *accountId = self.callsellnh_account.text;// @"syling"
     NSString *password = self.callsellnh_password.text;
-    [[CocosSDK shareInstance] Cocos_CancelNHAssetAccount:accountId Password:password FeePayingAsset:@"COCOS" OrderId:orderId Success:^(id responseObject) {
+    [[CocosSDK shareInstance] Cocos_CancelNHAssetAccount:accountId Password:password OrderId:orderId Success:^(id responseObject) {
         NSLog(@"Cocos_CancelNHAssetAccount \n%@",responseObject);
     } Error:^(NSError *error) {
         NSLog(@"Cocos_CancelNHAssetAccount error \n%@",error);
     }];
 }
 
+// 为gas调整抵押物
+- (IBAction)getEstimateGas {
+    [[CocosSDK shareInstance] Cocos_Gas_EstimationWithCOCOSAmout:self.mortgage_amout.text Success:^(id responseObject) {
+        NSLog(@"Cocos_Gas_EstimationWithCOCOSAmout \n%@",responseObject);
+    } Error:^(NSError *error) {
+        NSLog(@"Cocos_Gas_EstimationWithCOCOSAmout error \n%@",error);
+    }];
+}
+
+- (IBAction)mortgageGetGas {
+    
+    [[CocosSDK shareInstance] Cocos_GasWithMortgager:self.mortgage_mortgager.text Beneficiary:self.mortgage_beneficiary.text Collateral:[self.mortgage_amout.text longLongValue] Password:self.mortgage_password.text Success:^(id responseObject) {
+        NSLog(@"Cocos_GasWithMortgager \n%@",responseObject);
+    } Error:^(NSError *error) {
+        NSLog(@"Cocos_GasWithMortgager error \n%@",error);
+    }];
+}
+
+// 查看待领取GAS或节点出块奖励
+- (IBAction)viewPendingCollection {
+//    [[CocosSDK shareInstance] Cocos_LookupBlockRewards:self.receive_gas_account.text Success:^(id responseObject) {
+//        NSLog(@"Cocos_GetVestingBalances \n%@",responseObject);
+//    } Error:^(NSError *error) {
+//        NSLog(@"Cocos_GetVestingBalances error \n%@",error);
+//    }];
+}
+
+- (IBAction)receiveGas {
+//    [[CocosSDK shareInstance] Cocos_ClaimVestingBalance:@"syling" Password:@"1111aaaa" Success:^(id responseObject) {
+//        NSLog(@"Cocos_GetVestingBalances success :%@",responseObject);
+//    } Error:^(NSError *error) {
+//        NSLog(@"Cocos_GetVestingBalances error :%@",error);
+//    }];
+}
 
 @end
